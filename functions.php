@@ -142,3 +142,20 @@
 		$wp_customize->remove_control( 'custom_css' );
 	}
 	add_action( 'customize_register', 'maksimer_customize_register' );
+
+
+
+
+
+	/*
+	 * Work-around for Microsoft Edge bug squeezing images
+	 *
+	 *  https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7778808/
+	*/
+	function maksimer_edge_browser_fix() {
+		global $is_edge;
+		if( $is_edge ){
+			add_filter( 'wp_calculate_image_srcset', '__return_false' );
+		}
+	}
+	add_action( 'init', 'maksimer_edge_browser_fix' );
